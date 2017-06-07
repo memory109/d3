@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script type="text/javascript" src="d3.v4.js"></script>
+    <script type="text/javascript">
+	    // 分数【0，100】 柱状图【0,600】
+	    var linearScale = d3.scaleLinear()
+	        .domain([0, 100])
+	        .range([0, 600])
+	        .clamp(true);
+	    console.log(linearScale(-20)); //分数为-20处理为0
+	    console.log(linearScale(50)); //分数为50，柱状图的高为300
+	    console.log(linearScale(105)); //分数为105，处理为100，柱状图高600
+	    console.log(linearScale.invert(300)); //柱状图高为300 对应的分数为50
+
+	    var timeScale = d3.scaleTime()
+	        .domain([new Date(2016, 0, 1), new Date()])
+	        .range([0, 100]);
+	    console.log(timeScale(new Date(2016, 0, 15)));
+	    console.log(timeScale(new Date(2016, 3, 15)));
+	    console.log(timeScale(new Date()));
+	    console.log(timeScale.invert(50));
+
+	    var quantizeScale = d3.scaleQuantize()
+		  	.domain([0, 100])
+		  	.range(["red", "white", "green"]);
+
+		console.log(quantizeScale(22));
+		console.log(quantizeScale(50));
+		console.log(quantizeScale(88));
+		console.log(quantizeScale.invertExtent('white'));
+
+		var ordinalScale = d3.scaleOrdinal()
+		  	.domain(['poor', 'good', 'great'])
+		  	.range(['red', 'white', 'green']);
+
+		console.log(ordinalScale('good'));
+		console.log(ordinalScale('great'));
+		console.log(ordinalScale('poor'));
+
+		d3.json('data.json',function(data){
+			var min = d3.min(data,function(a){
+				return a.score;
+			});
+			console.log(min);
+			var max = d3.max(data,function(b){
+				return b.score;
+			});
+			console.log(max);
+		})
+    </script>
+</head>
+
+<body>
+    <div id="div1"></div>
+    <ul>
+        <li>001</li>
+        <li class="on">002</li>
+        <li>003</li>
+        <li class="on">004</li>
+    </ul>
+    <script type="text/javascript">
+		window.onload = function(){
+			var oDiv = d3.select('#div1');
+            var oUl = d3.select('ul');
+            console.log(oDiv.nodes());
+            var aLi = oUl.selectAll('.on');
+            console.log(aLi.nodes());
+            console.log(aLi.size());
+            d3.selectAll('#div1')
+                .attr('index', '22222')
+                .classed('red', true)
+                .html('我是不是你最疼爱的人')
+                .append('button')
+                .style('display', 'block')
+                .text('我是帅气的按钮');
+		}
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style type="text/css">
+    .svg-container {
+        width: 864px;
+        height: 864px;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="svg-container"></div>
+    <script type="text/javascript" src="jquery.js"></script>
+    <script type="text/javascript" src="d3.v4.js"></script>
+    <script type="text/javascript">
+    var cities = ['濮阳市', '南阳市', '许昌市', '郑州市', '驻马店市', '信阳市', '鹤壁市', '开封市', '商丘市', '新乡市', '周口市', '焦作市', '济源市', '漯河市', '洛阳市', '安阳市', '平顶山市', '三门峡市'];
+    var rawData = [{
+        caseType: '逮捕后被取保候审',
+        cities: [{
+            name: '洛阳市',
+            value: 75
+        }, {
+            name: '鹤壁市',
+            value: 98
+        }, {
+            name: '许昌市',
+            value: 22
+        }, {
+            name: '漯河市',
+            value: 13
+        }]
+    }, {
+        caseType: '涉毒案件',
+        cities: [{
+            name: '洛阳市',
+            value: 75
+        }, {
+            name: '鹤壁市',
+            value: 98
+        }, {
+            name: '许昌市',
+            value: 22
+        }, {
+            name: '漯河市',
+            value: 13
+        }]
+    }, {
+        caseType: '解除取保候审',
+        cities: [{
+            name: '郑州市',
+            value: 43
+        }, {
+            name: '开封市',
+            value: 81
+        }, {
+            name: '安阳市',
+            value: 92
+        }, {
+            name: '焦作市',
+            value: 21
+        }]
+    }, {
+        caseType: '故意杀人',
+        cities: [{
+            name: '郑州市',
+            value: 70
+        }, {
+            name: '开封市',
+            value: 25
+        }, {
+            name: '三门峡市',
+            value: 18
+        }, {
+            name: '南阳市',
+            value: 50
+        }, {
+            name: '济源市',
+            value: 41
+        }, {
+            name: '商丘市',
+            value: 66
+        }, {
+            name: '信阳市',
+            value: 22
+        }]
+    }, {
+        caseType: '盗窃诈骗',
+        cities: [{
+            name: '郑州市',
+            value: 17
+        }, {
+            name: '开封市',
+            value: 2
+        }, {
+            name: '新乡市',
+            value: 80
+        }, {
+            name: '周口市',
+            value: 33
+        }, {
+            name: '驻马店市',
+            value: 43
+        }, {
+            name: '濮阳市',
+            value: 22
+        }]
+    }];
+    var container = $('.svg-container');
+    var width = container.width(),
+        height = container.height();
+    width = Math.min(width, height);
+    height = width;
+    var svg = d3.select('.svg-container')
+        .append('svg')
+        .attr('width', width)
+        .attr('height', height)
+        .classed('bubble-container', true);
+    var caseTypeTotal = {},
+        cityTotal = {};
+    for (var i = 0; i < cities.length; i++) {
+        caseTypeTotal[cities[i]] = {
+            value: 0
+        };
+    }
+    var casemin = 0,
+        casemax = 0,
+        citymin = 0,
+        citymax = 0;
+    for (var i = 0; i < rawData.length; i++) {
+        var count = 0;
+        caseTypeTotal[rawData[i].caseType] = {};
+        for (var j = 0; j < rawData[i].cities.length; j++) {
+            var tempVal = rawData[i].cities[j].value;
+            count += tempVal;
+        }
+        caseTypeTotal[rawData[i].caseType].value = count;
+        if (count == 0) {
+            continue;
+        }
+        if (casemin == 0) {
+            casemin = count;
+        }
+        if (count > casemax) {
+            casemax = count;
+        }
+        if (count < casemin) {
+            casemin = count;
+        }
+    }
+    //案件计算半径
+    for (var caseType in caseTypeTotal) {
+        caseTypeTotal[caseType].radius = (function() {
+            var r;
+            if (casemin == casemax || caseTypeTotal[caseType].value == 0) {
+                r = 20;
+            } else {
+                r = 20 * (caseTypeTotal[caseType].value - casemax) / (casemax - casemin) + 40;
+                r = Number(r.toFixed(2));
+            }
+            return r;
+        })();
+    }
+
+    //城市选最值
+    for (var cityname in cityTotal) {
+        var tempVal = cityTotal[cityname].value;
+        if (tempVal == 0) {
+            continue;
+        }
+        if (citymin == 0) {
+            citymin = tempVal;
+        }
+        if (tempVal > citymax) {
+            citymax = tempVal;
+        }
+        if (tempVal < citymin) {
+            citymin = tempVal;
+        }
+    }
+    for (var cityname in cityTotal) {
+        cityTotal[cityname].radius = (function() {
+            var r;
+            if (citymin == citymax || cityTotal[cityname].value == 0) {
+                r = 10;
+            } else {
+                r = 15 * (cityTotal[cityname].value - citymax) / (citymax - citymin) + 25;
+                r = Number(r.toFixed(2));
+            }
+            return r;
+        })();
+    }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+    * {
+        margin: 0px;
+        padding: 0px;
+    }
+    </style>
+</head>
+
+<body>
+    <svg width="1500" height="1000">
+        <!-- 矩形 -->
+        <rect x="20" y="10" width="200" height="300" style="fill:red;stroke-width:2;stroke:blue" fill-opacity="0.1" stroke-opacity="0.9" opacity="0.7" rx="20" ry="20" />
+        <!-- 圆 -->
+        <circle cx="200" cy="50" r="40" fill="pink" stroke="black" stroke-width="2" />
+        <!-- 椭圆 -->
+        <ellipse cx="500" cy="50" rx="200" ry="50" style="fill:rgb(200,100,50);stroke:rgb(0,0,100);stroke-width:2" />
+        <ellipse cx="500" cy="100" rx="200" ry="50" style="fill:rgb(200,100,50);stroke:rgb(0,0,100);stroke-width:2" />
+        <ellipse cx="500" cy="150" rx="200" ry="50" style="fill:rgb(200,100,50);stroke:rgb(0,0,100);stroke-width:2" />
+        <!-- 线 -->
+        <line x1="0" y1="0" x2="600" y2="300" stroke="pink" stroke-width="3" />
+        <line x1="300" y1="0" x2="0" y2="300" stroke="blue" stroke-width="6" />
+        <!-- 多边形 -->
+        <polygon points="200,200 300,100 400,500 500,250" stroke="#000" stroke-width="2" fill="#ccc" />
+        <polygon points="600,200 550,400 800,600 800,250" stroke="#000" stroke-width="2" fill="#ccc" />
+        <!-- 折线 -->
+        <polyline points="0,0 530,30 560,300 600,400 700,400 600,700 270,100" stroke="orange" stroke-width="5" />
+        <!-- 路径 -->
+        <path d="M30 100 L270,300 M30 100 H270 M30,100 V300" stroke="black" stroke-width="5"/>  
+        <!-- 三次贝塞尔曲线 -->
+        <path d="M850 100 C920 20 1100 20 1180 100 S1200 180 1250 100" fill="white" stroke="black" stroke-width="3"/>
+        <!-- 二次贝塞尔曲线 -->
+        <path d="M840,300 Q950,160 1050,300 T1340,300" fill="white" stroke="black" stroke-width="3"/>
+        <!-- 弧线 -->
+        <path d="M100 200 a200,150 0 1,0 150 -150 Z" fill="yellow" stroke="black" stroke-width="3" />
+        <path d="M840 500 a200,150 0 1,0 100 -150 Z" fill="orange" stroke="black" stroke-width="3" />
+        <path d="M250 350 L150 550 L350 550 Z" />
+        <path d="M153 334 C153 334 151 334 151 334 C151 339 153 344 156 344 C164 344 171 339 171 334 C171 322 164 314 156 314 C142 314 131 322 131 334 C131 350 142 364 156 364 C175 364 191 350 191 334 C191 311 175 294 156 294 C131 294 111 311 111 334 C111 361 131 384 156 384 C186 384 211 361 211 334 C211 300 186 274 156 274" style="fill:white;stroke:red;stroke-width:2" />
+        <!-- 高斯模糊 -->
+        <defs>
+            <filter id="gsmh">
+                <feGaussianBlur in="SourceGraphic" stdDeviation="0" />
+            </filter>
+        </defs>
+        <ellipse cx="800" cy="150" rx="70" ry="40" style="fill:#ff0000;stroke:#000000;stroke-width:2;filter:url(#gsmh)" />
+        <defs>
+            <!-- 线性渐变 -->
+            <linearGradient id="orange-red" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" style="stop-color:orange;stop-opacity=1;" />
+                <stop offset="100%" style="stop-color:red;stop-opacity=1;" />
+            </linearGradient>
+            <linearGradient id="red-orange" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" style="stop-color:red;stop-opacity=1;" />
+                <stop offset="100%" style="stop-color:orange;stop-opacity=1;" />
+            </linearGradient>
+            <!-- 放射性渐变 -->
+            <radialGradient id="grey-blue" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+                <stop offset="0%" style="stop-color:rgb(200,200,200);stop-opacity=0;" />
+                <stop offset="100%" style="stop-color:blue;stop-opacity=1;" />
+            </radialGradient>
+            <radialGradient id="grey_blue1" cx="20%" cy="40%" r="50%" fx="50%" fy="50%">
+                <stop offset="0%" style="stop-color:rgb(200,200,200);stop-opacity:0" />
+                <stop offset="100%" style="stop-color:rgb(0,0,255);stop-opacity:1" />
+            </radialGradient>
+        </defs>
+        <ellipse cx="500" cy="800" rx="80" ry="40" fill="url(#orange-red)" />
+        <ellipse cx="200" cy="800" rx="80" ry="40" fill="url(#red-orange)" />
+        <circle cx="300" cy="640" r="50" fill="url(#grey-blue)" />
+        <ellipse cx="100" cy="640" rx="110" ry="100" style="fill:url(#grey_blue1)"/>
+
+
+        <!-- 文字 -->
+        <text x="850" y="680" dx="-5" dy="5" rotate="180" textLength="200">
+            How to learn D3!
+        </text>
+        <text x="850" y="740" dx="-5" dy="5" textLength="200">
+            How to learn <tspan fill="red">D3</tspan>!
+        </text>
+
+        <!-- 标记 -->
+        
+    </svg>
+</body>
+
+</html>

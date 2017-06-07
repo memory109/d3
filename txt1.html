@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script type="text/javascript" src="d3.v4.js"></script>
+    <style type="text/css">
+    div.bar {
+        display: inline-block;
+        width: 20px;
+        margin-right: 2px;
+        background: teal;
+    }
+    </style>
+</head>
+
+<body>
+    <script type="text/javascript">
+	    var arr = [];
+	    // 原生js
+	    for (var i = 0; i < 25; i++) {
+	        var newNumber = Math.round(Math.random() * 30);
+	        arr.push(newNumber);
+	    }
+	    // D3方式
+	    // arr = d3.range(25).map(function() {
+	    //     return d3.round(d3.random.normal(15, 8)(), 1);
+	    // });
+
+	    d3.select('body').selectAll('div')
+	        .data(arr)
+	        .enter()
+	        .append('div')
+	        .attr("class", 'bar')
+	        .style('height', function(data) {
+	            return (data * 5) + 'px';
+	        });
+    </script>
+</body>
+
+</html>

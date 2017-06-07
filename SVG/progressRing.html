@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>进度圈</title>
+    <style type="text/css">
+    * {
+        margin: 0px;
+        padding: 0px;
+        background-color: #212121;
+        -webkit-animation: progressAnimation 1s linear infinite;
+    }
+    
+    #progress {
+        stroke-dasharray: $circumference;
+        stroke-dashoffset: $circumference;
+        animation: progressAnimation 1600ms linear 500ms forwards;
+        transition: stroke-dasharray 400ms linear;
+    }
+   
+    @keyframes progressAnimation {
+        to {
+            stroke-dashoffset: $stroke_percentage;
+        }
+    }
+    
+    $radius: 90;
+    $percent: 83;
+    $circumference: (pi() * (2 * $radius));
+    $stroke_percentage: $circumference - (($percent / 100) * $circumference);
+    /*#progress {
+        stroke-dasharray: 100px;
+        stroke-dashoffset: 100px;
+    }
+    
+    @-webkit-keyframes progressAnimation {
+        form {
+            stroke-dashoffset: 100px;
+        }
+        to {
+            stroke-dashoffset: 300px;
+        }
+    }*/
+    </style>
+</head>
+
+<body>
+    <svg width="240" height="240">
+        <circle id="backdrop" cx="120" cy="120" r="90" stroke-width="3" stroke="#333" fill="none" />
+        <circle id="progress" cx="120" cy="120" r="90" stroke-width="4" stroke="red" fill="none" />
+    </svg>
+</body>
+
+</html>

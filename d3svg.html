@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript" src="d3.js"></script>
+</head>
+<body>
+	<script type="text/javascript">
+		//svg尺寸
+		var w = 500;
+		var h = 50;
+
+		//创建svg容器
+		var svg = d3.select('body')
+					.append('svg')
+					.attr({
+						width: w,
+						height: h
+					});
+
+		var arr = [ 5, 10, 15, 20, 25 ]; 
+		svg.selectAll('circle')
+			.data(arr)
+			.enter()
+			.append('circle')
+			.attr('cx',function(d,a){
+				console.log(a);//a代表下标 从零开始
+				return (a * 50) + 25;
+			})
+			.attr('cy',h/2)
+			.attr('r',function(b){
+				return b;
+			});
+	</script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script type="text/javascript" src="d3.js"></script>
+</head>
+
+<body>
+    This is HTML Page!
+    <br>
+    <script type="text/javascript">
+    	var arr = [3,33, 40, 20, 34, 10];
+    	d3.select('body').selectAll('p')
+    		.data(arr)
+    		.enter()
+    		.append('p')
+    		.text(function(data){
+    			return "I can count up to " + data;
+    		})
+    		.style("color",function(data){
+				if(data > 30){
+					return "red";
+				}else{
+					return "pink";
+				}
+    		})
+    </script>
+</body>
+
+</html>

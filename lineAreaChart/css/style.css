@@ -1,0 +1,21 @@
+#container {
+    background-color: #ddd;
+    width: 500px;
+    height: 250px;
+}
+
+.linePath {
+    fill: none;
+    stroke: coral;
+    stroke-width: 2;
+}
+
+.domin,.tick line{
+	display: none;
+	/*stroke:gray;*/
+	/*stroke-width:1;*/
+}
+
+.areaPath{
+	fill:coral;
+}

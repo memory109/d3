@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script type="text/javascript" src="d3.v4.js"></script>
+    <script type="text/javascript">
+    var arr = [3, 20, 9, 50];
+    var arr1 = ['1', '3', '9', '50'];
+    console.log(d3.min(arr));
+    console.log(d3.extent(arr)); //[最小值，最大值]
+    console.log(d3.sum(arr));
+    console.log(d3.mean(arr)); //平均值
+    console.log(d3.median(arr)); //中位数
+    console.log(d3.quantile(arr, 0.5)); //数组的p分位数
+    console.log(d3.variance(arr)); //数组的无偏方差
+    var x = ((3 - 20.5) * (3 - d3.mean(arr)) + (20 - d3.mean(arr)) * (20 - d3.mean(arr)) + (9 - d3.mean(arr)) * (9 - d3.mean(arr)) + (50 - d3.mean(arr)) * (50 - d3.mean(arr))) / (4 - 1);
+    console.log(x);
+    console.log(d3.deviation(arr)); //数组的标准差
+    var y = Math.sqrt(x);
+    console.log(y);
+    var array = [{
+        foo: 42
+    }, {
+        foo: 91
+    }, {
+        foo: 100
+    }, {
+        foo: 300
+    }];
+    console.log(d3.scan(array, function(a, b) {
+        return b.foo - a.foo;
+    }));
+    </script>
+</head>
+
+<body>
+</body>
+
+</html>

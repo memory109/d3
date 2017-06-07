@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <svg width="1440" height="470"></svg>
+    <script type="text/javascript" src="d3.v4.js"></script>
+    <script type="text/javascript">
+    var yData = [3800, 4200, 4500, 4100, 3500, 2500, 1900, 1700, 2200, 3000, 3700, 4300, 4600, 4100, 2500, 1300, 500, 450, 1400, 2000, 2100, 2123, 2200, 2890, 3900, 4700, 4750, 4200, 3000, 1000];
+    var xData = ['9:01', '9:02', '9:03', '9:04', '9:05', '9:06', '9:07', '9:08', '9:09', '9:10', '9:11', '9:12', '9:13', '9:14', '9:15', '9:16', '9:17', '9:18', '9:19', '9:20', '9:21', '9:22', '9:23', '9:24', '9:25', '9:26', '9:27', '9:28', '9:29', '9:30'];
+    var svg = d3.select('svg');
+    var width = svg.attr('width');
+    var height = svg.attr('height');
+    svg.append('text')
+        .text('(万)')
+        .attr('x', 20)
+        .attr('y', 450);
+    // x轴、y轴
+    var x = d3.scaleBand()
+        .domain(xData)
+        .rangeRound([0, 1290]);
+    var y = d3.scaleLinear()
+        .domain([0, 5000])
+        .rangeRound([370, 0]);
+    svg.append('g')
+        .classed('axis-container xaxis', true)
+        .attr('transform', 'translate(45,' + (height - 50) + ')')
+        .call(d3.axisBottom(x));
+    svg.append('g')
+        .classed('axis-container yaxis', true)
+        .attr('transform', 'translate(45,50)')
+        .call(d3.axisLeft(y));
+    // 划线
+    var linePath = svg.append('g')
+        .classed('line-path-container', true);
+    linePath.append('path')
+        .classed('line-path', true)
+        .attr('stroke', '#E24676')
+        .attr('stroke-width', '4px')
+        .attr('fill', 'none')
+        .attr('d', getLinePoints());
+    function getLinePoints() {
+        var line = d3.line()
+            .x(function(d, i) {
+                return x(xData[i]) + 50 + x.bandwidth() * 0.5;
+            })
+            .y(function(d, i) {
+                return y(d) + 20;
+            })
+            .curve(d3.curveMonotoneX);
+        return line(yData);
+    }
+
+    //增加触发鼠标悬浮的区域
+    var toolTipeTrigger = svg.append('g')
+        .classed('tool-tip-trigger', true);
+
+    toolTipeTrigger.selectAll('rect')
+        .data(yData)
+        .enter()
+        .append('rect')
+        .attr('width', x.bandwidth())
+        .attr('height', 370)
+        .attr('x', function(d, i) {
+            return x(xData[i]) + 60;
+        })
+        .attr('y', function(d, i) {
+            return 20;
+        })
+        .attr('fill', 'transparent')
+        .on('mouseenter', function(data, index) {
+            show(data, index);
+        })
+        .on('mouseleave', function() {
+            hide();
+        });
+
+    var lineTip = toolTipeTrigger.append('g')
+        .classed('line-tip', true)
+        .attr('transform', 'translate(0, 0)')
+        .style('visibility', 'hidden');
+    lineTip.append('text')
+        .attr('text-anchor', 'middle')
+        .attr('x', 0)
+        .attr('y', -15)
+        .style('fill', '#000')
+        .style('font-size', '18px');
+    lineTip.append('circle')
+        .attr('cx', 0)
+        .attr('cy', 0)
+        .attr('r', 10)
+        .style('fill', '#F3F3F3');
+    lineTip.append('circle')
+        .attr('cx', 0)
+        .attr('cy', 0)
+        .attr('r', 6)
+        .style('fill', '#FF82B1');
+
+    function show(d, i) {
+        lineTip.attr('transform', function() {
+                var top = y(d) + 20;
+                var left = x(xData[i]) + 50 + x.bandwidth() / 2;
+                return 'translate(' + left + ',' + top + ')';
+            })
+            .style('visibility', 'visible');
+        lineTip.select('text').text(d);
+    }
+
+    function hide() {
+        lineTip.style('visibility', 'hidden');
+    }
+    </script>
+</body>
+
+</html>

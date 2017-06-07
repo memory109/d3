@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style type="text/css">
+		.container{
+			width:500px;
+			height:400px;
+		}
+    </style>
+</head>
+
+<body>
+    <div class="container"></div>
+    <script type="text/javascript" src="jquery.js"></script>
+    <script type="text/javascript" src="d3.v4.js"></script>
+    <script type="text/javascript">
+    var cities = ['阿拉善', '乌海', '鄂尔多斯', '巴彦淖尔', '包头', '呼和浩特', '乌兰察布', '锡林郭勒', '赤峰', '通辽', '兴安', '呼伦贝尔'];
+    var nums = [3253, 4530, 4800, 3268, 4726, 1601, 3405, 2803, 1103, 4413, 2607, 3830];
+    var container = $('.container');
+    var svgWidth = container.width(),
+        svgHeight = container.height();
+    var svg = d3.select('.container')
+    	.append('svg')
+        .attr('width', svgWidth)
+        .attr('heihgt', svgHeight);
+    var colorGradient = svg.append('defs')
+        .append('linearGradient')
+        .attr('id', 'areaColorGradient')
+        .attr('x1', '0%')
+        .attr('y1', '0%')
+        .attr('x2', '0%')
+        .attr('y2', '100%')
+        .attr('spreadMethod', 'pad');
+    colorGradient.append('stop')
+        .attr('offset', '0%')
+        .attr('stop-color', 'rgb(226, 70, 118)')
+        .attr('stop-opacity', '0.2');
+    colorGradient.append('stop')
+        .attr('offset', '100%')
+        .attr('stop-color', 'rgb(226, 70, 118)')
+        .attr('stop-opacity', '0');
+
+    svg.append('text')
+        .text('案件数量')
+        .attr('x', 50)
+        .attr('y', 50)
+        .style('fill', '#000');
+    svg.append('text')
+        .text('盟市')
+        .attr('x', (svgWidth + 50))
+        .attr('y', 350)
+        .style('fill', '#000');
+    </script>
+</body>
+
+</html>
